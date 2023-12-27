@@ -92,7 +92,7 @@ def train_infer(preprocessed_data: pd.DataFrame):
         future = m.make_future_dataframe(periods=4, freq='M')
         forecast = m.predict(future)
         
-        forecast = forecast[forecast['ds'] > '2017-09-30'][['ds', 'yhat', 'yhat_lower', 'yhat_upper']]
+        forecast = forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']]
         forecast['product name'] = prod
         
         result_df = pd.concat([result_df, forecast], ignore_index=True)
