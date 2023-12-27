@@ -11,7 +11,6 @@ from prophet import Prophet
 
 import pandas as pd
 import datetime as dt
-from calendar import monthrange
 
 def preprocess_dataset(initial_dataset: pd.DataFrame):
     # convert to datetime type and extract only date part
