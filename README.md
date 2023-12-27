@@ -1,2 +1,2 @@
 # taipy-supply-chain-demo
-This repo contains code òf Supply chain demo converted to Taipy 
+This repo contains code of Supply chain demo converted to Taipy 
