@@ -37,7 +37,7 @@ db_databases_md = """
 |Training>
 
 <Forecast|part|render={db_table_selected=='Forecast Dataset'}|
-<|{values}|table|width=fit-content|style={lambda s,i,r: 'red_color' if r['Historical']!=r['Forecast'] else 'green_color'}|class_name=ml-auto mr-auto|>
+<|{values}|table|width=fit-content|>
 |Forecast>
 """ 
 
