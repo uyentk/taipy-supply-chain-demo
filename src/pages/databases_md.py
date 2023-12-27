@@ -26,7 +26,7 @@ def handle_temp_csv_path(state):
 db_databases_md = """
 # Data**bases**{: .color-primary}
 
-<|layout|columns=2 2 1|
+<|layout|columns=1 1|
 <|{db_table_selected}|selector|lov={db_table_selector}|dropdown|label=Table|>
 
 <|{PATH_TO_TABLE}|file_download|name=table.csv|label=Download table|>
