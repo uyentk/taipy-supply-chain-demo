@@ -6,7 +6,7 @@ tempdir.mkdir(exist_ok=True)
 PATH_TO_TABLE = str(tempdir / "table.csv")
 
 # Selector to select the table to show
-db_table_selector = ['Training Dataset', 'Forecast Dataset']
+db_table_selector = ['Training Dataset', 'Result Table']
 db_table_selected = db_table_selector[0]
 
 def handle_temp_csv_path(state):
@@ -18,8 +18,8 @@ def handle_temp_csv_path(state):
     """
     if state.db_table_selected == "Training Dataset":
         state.train_dataset.to_csv(PATH_TO_TABLE, sep=';')
-    if state.db_table_selected == "Forecast Dataset":
-        state.values.to_csv(PATH_TO_TABLE, sep=';')
+    if state.db_table_selected == "Result Table":
+        state.trained_infer.to_csv(PATH_TO_TABLE, sep=';')
 
 
 # Aggregation of the strings to create the complete page
@@ -36,8 +36,8 @@ db_databases_md = """
 <|{train_dataset}|table|>
 |Training>
 
-<Forecast|part|render={db_table_selected=='Forecast Dataset'}|
-<|{values}|table|width=fit-content|>
-|Forecast>
+<Result|part|render={db_table_selected=='Forecast Dataset'}|
+<|{trained_infer}|table|width=fit-content|>
+|Result>
 """ 
 

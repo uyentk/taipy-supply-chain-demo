@@ -3,6 +3,7 @@ import taipy as tp
 from taipy.gui import Gui, Icon, navigate
 from config.config import scenario_cfg
 from taipy.config import Config 
+from pages.databases_md import *
 from pages.main_dialog import *
 
 import warnings
@@ -25,28 +26,19 @@ def create_first_scenario(scenario_cfg):
 scenario = create_first_scenario(scenario_cfg)
 
 # Read datasets
+initial_dataset = scenario.initial_dataset.read()
 train_dataset = scenario.train_dataset.read()
+result_dataset = scenario.trained_infer.read()
 
-
-# # Prepare data for visualization
-# select_x = test_dataset.drop('EXITED',axis=1).columns.tolist()
-# x_selected = select_x[0]
-# select_y = select_x
-# y_selected = select_y[1]
-
-# # Read results and create charts
-# values = scenario.results_ml.read()
-# forecast_series = values['Forecast']
-# scatter_dataset_pred = creation_scatter_dataset_pred(test_dataset, forecast_series)
-# histo_full_pred = creation_histo_full_pred(test_dataset, forecast_series)
-# histo_full = creation_histo_full(test_dataset)
-
+# Prepare data for visualization
+select_prod = list(result_dataset['product name'].unique())
+prod_selected = select_prod[0]
 
 
 def on_change(state, var_name, var_value):
     """Handle variable changes in the GUI."""
     if var_name in ['x_selected', 'y_selected']:
-        update_histogram_and_scatter(state)
+        update_viz(state)
     elif var_name == 'db_table_selected':
         handle_temp_csv_path(state)
 
