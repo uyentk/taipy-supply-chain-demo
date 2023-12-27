@@ -66,7 +66,7 @@ def menu_fct(state, var_name, var_value):
 
 
 def on_init(state):
-    update_histogram_and_scatter(state)
+    update_viz(state)
 
 # Define pages
 pages = {
