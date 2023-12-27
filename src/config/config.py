@@ -154,4 +154,4 @@ scenario_cfg = Config.configure_scenario(id="supplychain_predict",
                                                        task_preprocess_dataset_cfg,
                                                        task_create_train_cfg])
 
-Config.export('config/config_supply.toml')
+Config.export('taipy-supply-chain-demo/src/config/config_supply.toml')
