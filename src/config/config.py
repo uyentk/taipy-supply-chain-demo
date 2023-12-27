@@ -15,7 +15,7 @@ from calendar import monthrange
 
 def preprocess_dataset(initial_dataset: pd.DataFrame):
     # convert to datetime type and extract only date part
-    initial_dataset["DateOrders"] = pd.to_datetime(initial_dataset['order date (DateOrders)'], format = "%m/%d/Y %H:%M").dt.date
+    initial_dataset["DateOrders"] = pd.to_datetime(initial_dataset['order date (DateOrders)'], format='%m/%d/%Y %H:%M').dt.date
     # modify format of DateOrders 
     initial_dataset['DateOrders'] = pd.to_datetime(initial_dataset['DateOrders']).dt.strftime('%d/%m/%Y')
     initial_dataset.drop(columns='order date (DateOrders)', inplace=True)
@@ -25,7 +25,7 @@ def preprocess_dataset(initial_dataset: pd.DataFrame):
     initial_dataset['DateOrders_year'] = pd.to_datetime(initial_dataset['DateOrders'], format= '%d/%m/%Y').dt.year
 
     def create_month_year(row):
-        month_year = str(row(initial_dataset['DateOrders_month'])) + '/' + str(row(initial_dataset['DateOrders_year']))
+        month_year = str(row['DateOrders_month']) + '/' + str(row['DateOrders_year'])
         return month_year
     
     # Sales in terms of product name each month
@@ -41,7 +41,7 @@ def preprocess_dataset(initial_dataset: pd.DataFrame):
     sales_product_month['Date'] = datetime_series.dt.strftime('%d/%m/%Y')
 
     # drop unneeded columns
-    sales_product_month.drop(['DateOrders_month', 'DateOrders_year', 'DateOrders_month_year'])
+    sales_product_month.drop(columns = {'DateOrders_month', 'DateOrders_year', 'DateOrders_month_year'}, inplace=True)
 
     sales_product_month = sales_product_month[sales_product_month['Date'] != '01/10/2017']
 
@@ -72,7 +72,7 @@ def train_infer(preprocessed_data: pd.DataFrame):
     end_date = '2017-12-01'
     end_date = pd.to_datetime(pd.Series(end_date))[0]
 
-    result_df = pd.DataFrame(columns=['ds', 'yhat', 'yhat_lower', 'yhat_upper', 'product name'])
+    result_df = pd.DataFrame(columns=['ds', 'yhat', 'yhat_lower', 'yhat_upper', 'product name', 'y'])
 
     # Products ordered in more than 10 months
     tmp = preprocessed_data['Product Name'].value_counts().reset_index()
@@ -94,6 +94,7 @@ def train_infer(preprocessed_data: pd.DataFrame):
         
         forecast = forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']]
         forecast['product name'] = prod
+        forecast['y'] = train_df['y']
         
         result_df = pd.concat([result_df, forecast], ignore_index=True)
 
