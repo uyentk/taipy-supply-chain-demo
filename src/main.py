@@ -34,6 +34,10 @@ result_dataset = scenario.trained_infer.read()
 select_prod = list(result_dataset['product name'].unique())
 prod_selected = select_prod[0]
 
+# Create charts
+forecast_series = result_dataset['y']
+line_dataset = creation_line_dataset(result_dataset)
+
 
 def on_change(state, var_name, var_value):
     """Handle variable changes in the GUI."""
