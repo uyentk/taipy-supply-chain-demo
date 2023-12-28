@@ -1,0 +1,19 @@
+{
+"id": "TASK_train_infer_model_2916f61f-9324-4665-88e0-b5db83239eeb",
+"owner_id": "SCENARIO_supplychain_predict_c06ca1ee-e275-4f40-a6a5-9ce360c668b8",
+"parent_ids": [
+"SCENARIO_supplychain_predict_c06ca1ee-e275-4f40-a6a5-9ce360c668b8"
+],
+"config_id": "train_infer_model",
+"input_ids": [
+"DATANODE_preprocessed_dataset_a8a2f3c0-2fa7-4b45-b1d6-0eea4a4ed282"
+],
+"function_name": "train_infer",
+"function_module": "config.config",
+"output_ids": [
+"DATANODE_trained_infer_f979a0a4-96f2-42e1-b2f5-afc33eb65d8f"
+],
+"version": "ff9593eb-8901-4bc7-b00a-ab85d2af42f6",
+"skippable": false,
+"properties": {}
+}
