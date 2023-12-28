@@ -2,8 +2,13 @@
 
 [DATA_NODE.initial_dataset]
 storage_type = "csv"
-path = "data\\DataCoSupplyChainDataset.csv"
+default_path = "data\\DataCoSupplyChainDataset.csv"
+encoding = "latin1"
 has_header = "True:bool"
+
+[DATA_NODE.end_date]
+
+[DATA_NODE.prod]
 
 [DATA_NODE.preprocessed_dataset]
 
@@ -12,19 +17,19 @@ has_header = "True:bool"
 [DATA_NODE.trained_infer]
 
 [TASK.preprocess_dataset]
-function = "__main__.preprocess_dataset:function"
+function = "config.config.preprocess_dataset:function"
 inputs = [ "initial_dataset:SECTION",]
 outputs = [ "preprocessed_dataset:SECTION",]
 skippable = "False:bool"
 
 [TASK.create_train_data]
-function = "__main__.create_train_df:function"
-inputs = [ "preprocessed_dataset:SECTION",]
+function = "config.config.create_train_df:function"
+inputs = [ "preprocessed_dataset:SECTION", "prod:SECTION", "end_date:SECTION",]
 outputs = [ "train_dataset:SECTION",]
 skippable = "False:bool"
 
 [TASK.train_infer_model]
-function = "__main__.train_infer:function"
+function = "config.config.train_infer:function"
 inputs = [ "train_dataset:SECTION",]
 outputs = [ "trained_infer:SECTION",]
 skippable = "False:bool"

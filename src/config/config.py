@@ -3,7 +3,7 @@ from taipy import Config, Scope
 # Creation of the datanodes
 ##############################################################################################################################
 # How to connect to the database
-path_to_csv = 'data\DataCoSupplyChainDataset.csv' # thay path data
+path_to_csv = 'data\DataCoSupplyChainDataset.csv'
 
 
 from prophet import Prophet
@@ -69,6 +69,7 @@ def create_train_df(preprocessed_data: pd.DataFrame, prod: str, end_date: dt.dat
 def train_infer(preprocessed_data: pd.DataFrame):
     end_date = '2017-12-01'
     end_date = pd.to_datetime(pd.Series(end_date))[0]
+    
 
     result_df = pd.DataFrame(columns=['ds', 'yhat', 'yhat_lower', 'yhat_upper', 'product name', 'y'])
 
@@ -101,12 +102,14 @@ def train_infer(preprocessed_data: pd.DataFrame):
 # ======================== CONFIG ========================
 
 # path for csv and file_path for pickle
-initial_dataset_cfg = Config.configure_data_node(id="initial_dataset",
-                                             path=path_to_csv,
-                                             storage_type="csv",
+initial_dataset_cfg = Config.configure_csv_data_node(id="initial_dataset",
+                                             default_path=path_to_csv,
+                                             encoding="latin1",
                                              has_header=True)
 
-# date_cfg = Config.configure_data_node(id="date", default_data="None")
+end_date_cfg = Config.configure_data_node(id= "end_date")
+prod_cfg = Config.configure_data_node(id= "prod")
+
 
 preprocessed_dataset_cfg = Config.configure_data_node(id="preprocessed_dataset")
 
@@ -127,13 +130,13 @@ trained_infer_cfg= Config.configure_data_node(id="trained_infer")
 
 # initial_dataset --> preprocess dataset --> preprocessed_dataset
 task_preprocess_dataset_cfg = Config.configure_task(id="preprocess_dataset",
-                                                    input=[initial_dataset_cfg],
+                                                    input=initial_dataset_cfg,
                                                     function=preprocess_dataset,
                                                     output=preprocessed_dataset_cfg)
 
 # preprocessed_dataset --> create train data --> train_dataset
 task_create_train_cfg = Config.configure_task(id="create_train_data",
-                                                   input=preprocessed_dataset_cfg,
+                                                   input=[preprocessed_dataset_cfg, prod_cfg, end_date_cfg],
                                                    function=create_train_df,
                                                    output=[train_dataset_cfg])
 
@@ -142,7 +145,7 @@ task_create_train_cfg = Config.configure_task(id="create_train_data",
 task_train_infer_model_cfg = Config.configure_task(id="train_infer_model",
                                                       input=train_dataset_cfg,
                                                       function=train_infer,
-                                                      output=[trained_infer_cfg])
+                                                      output=trained_infer_cfg)
         
 ##############################################################################################################################
 # Creation of the scenario

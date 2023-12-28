@@ -11,7 +11,7 @@ with warnings.catch_warnings():
     warnings.simplefilter(action='ignore', category=FutureWarning)
 
 # Load configuration
-Config.load('config/config.toml')
+Config.load('config/config_supply.toml')
 scenario_cfg = Config.scenarios['supplychain_predict']
 
 # Execute the scenario
@@ -41,7 +41,7 @@ line_dataset = creation_line_dataset(result_dataset)
 
 def on_change(state, var_name, var_value):
     """Handle variable changes in the GUI."""
-    if var_name in ['x_selected', 'y_selected']:
+    if var_name == 'prod_selected':
         update_viz(state)
     elif var_name == 'db_table_selected':
         handle_temp_csv_path(state)

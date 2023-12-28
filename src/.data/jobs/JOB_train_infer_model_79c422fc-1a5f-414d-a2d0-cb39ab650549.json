@@ -1,0 +1,12 @@
+{
+"id": "JOB_train_infer_model_79c422fc-1a5f-414d-a2d0-cb39ab650549",
+"task_id": "TASK_train_infer_model_661e92ff-b9a0-4f38-acc6-379f78ba6630",
+"status": "<Status.BLOCKED: 2>",
+"force": false,
+"submit_id": "SUBMISSION_adee889e-50e6-4998-9c43-e5e165b3dd47",
+"submit_entity_id": "SCENARIO_supplychain_predict_fa6b58f1-09fc-44b1-9cb3-26715ee57820",
+"creation_date": "2023-12-28T09:04:06.558224",
+"subscribers": [],
+"stacktrace": [],
+"version": "a1ccc204-0f80-4a60-882a-835b504b3881"
+}
