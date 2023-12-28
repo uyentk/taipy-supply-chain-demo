@@ -31,7 +31,6 @@ def update_viz(state):
     # state.scatter_dataset_pred = state.scatter_dataset_pred
 
 
-
 dv_data_visualization_md = """
 # Data **Visualization**{: .color-primary}
 <|{dv_graph_selected}|toggle|lov={dv_graph_selector}|>
