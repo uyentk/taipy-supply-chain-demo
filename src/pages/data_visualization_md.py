@@ -14,6 +14,21 @@ def creation_line_dataset(trained_infer: pd.DataFrame, prod: str):
     line_dataset = line_dataset[line_dataset['product name'] == prod]
     return line_dataset
 
+def creation_map_dataset(initial_dataset: pd.DataFrame, prod: str):
+    map_dataset = initial_dataset.copy()
+    map_dataset = map_dataset[map_dataset['Product Name'] == prod]
+    map_dataset = (
+        map_dataset.groupby(['Customer State',
+                              'Latitude',
+                              'Longitude'
+                              ])
+                   .agg(Sales=('Sales', 'sum'))
+                   .reset_index()
+    )
+    map_dataset_displayed = map_dataset[map_dataset['Sales'] > 2000]
+    map_dataset_displayed['Size'] = np.sqrt(map_dataset_displayed.loc[:,'Sales']/map_dataset_displayed.loc[:,'Sales'].max())*80 + 3
+    map_dataset_displayed['Text'] = map_dataset_displayed.loc[:,'Sales'].astype(str) + ' orders </br> ' + map_dataset_displayed.loc[:,'Customer State']
+    return map_dataset_displayed
 
 def update_viz(state):
     global prod_selected
@@ -27,9 +42,28 @@ def update_viz(state):
                                       "color[2]": "red",
                                       "name[1]": "Actual",
                                       "name[2]": "Predicted"}
+    
     state.line_dataset = state.line_dataset
-    # state.scatter_dataset_pred = state.scatter_dataset_pred
+    # state.line_dataset_res = state.line_dataset_res
 
+    # state.properties_map_dataset = {
+    #                                 'type': 'scattermapbox',
+    #                                 'lat': 'Latitude',
+    #                                 'lon':'Longitude'
+    #                                 }
+    
+    state.map_dataset_displayed = state.map_dataset_displayed
+    # state.map_dataset_res = state.map_dataset_res
+
+marker_map = {"color":"Sales", "size": "Size", "showscale":True, "colorscale":"Viridis"}
+layout_map = {
+            "dragmode": "zoom",
+            "mapbox": { "style": "open-street-map", "center": { "lat": 38, "lon": -90 }, "zoom": 3},
+            "geo": {
+            "scope": "usa"
+        }
+            }
+options = {"unselected":{"marker":{"opacity":0.5}}}
 
 dv_data_visualization_md = """
 # Data **Visualization**{: .color-primary}
@@ -44,5 +78,12 @@ dv_data_visualization_md = """
 
 <|{line_dataset}|chart|properties={properties_line_dataset}|height=600px|>
 
+
+<|part|render={dv_graph_selected == 'Map'}|
+### Map
+<|{prod_selected}|selector|lov={select_prod}|dropdown|label=Select product|>
+|>
+
+<|{map_dataset_displayed}|chart|type=scattergeo|lat=Latitude|lon=Longitude|marker={marker_map}|layout={layout_map}|text=Text|mode=markers|height=800px|options={options}|>
 """
 

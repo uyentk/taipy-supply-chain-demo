@@ -36,6 +36,7 @@ prod_selected = select_prod[0]
 # Create charts
 forecast_series = result_dataset['y']
 line_dataset = creation_line_dataset(result_dataset, prod_selected)
+map_dataset_displayed = creation_map_dataset(initial_dataset, prod_selected)
 
 def on_change(state, var_name, var_value):
     """Handle variable changes in the GUI."""
@@ -73,6 +74,7 @@ def update_variables(state, product):
 def update_charts(state, product):
     """This function updates all the charts of the GUI."""
     state.line_dataset = creation_line_dataset(result_dataset, product)
+    state.map_dataset = creation_map_dataset(initial_dataset, product)
 
 
 def on_init(state):
