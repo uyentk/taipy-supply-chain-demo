@@ -1,0 +1,19 @@
+{
+"id": "TASK_preprocess_dataset_8f570078-2277-4f87-912c-ebd0583d2058",
+"owner_id": "SCENARIO_supplychain_predict_0a507a60-bdfa-41e8-8b5a-9634bc75cdaf",
+"parent_ids": [
+"SCENARIO_supplychain_predict_0a507a60-bdfa-41e8-8b5a-9634bc75cdaf"
+],
+"config_id": "preprocess_dataset",
+"input_ids": [
+"DATANODE_initial_dataset_95ead798-5ee9-4ff0-8bef-48467edbdd84"
+],
+"function_name": "preprocess_dataset",
+"function_module": "config.config",
+"output_ids": [
+"DATANODE_preprocessed_dataset_98f65900-2cf5-4cf6-a999-9ae3c820fcd3"
+],
+"version": "ff9593eb-8901-4bc7-b00a-ab85d2af42f6",
+"skippable": false,
+"properties": {}
+}

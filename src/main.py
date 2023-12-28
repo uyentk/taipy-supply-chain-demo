@@ -3,7 +3,6 @@ import taipy as tp
 from taipy.gui import Gui, Icon, navigate
 from config.config import scenario_cfg
 from taipy.config import Config 
-from pages.databases_md import *
 from pages.main_dialog import *
 
 import warnings
@@ -70,7 +69,7 @@ def on_init(state):
 
 # Define pages
 pages = {
-    "/": root_md + dialog_md,
+    "/": root_md, #+ dialog_md,
     "Data-Visualization": dv_data_visualization_md,
     "Databases": db_databases_md,
 }

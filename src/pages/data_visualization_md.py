@@ -7,13 +7,12 @@ dv_graph_selected = dv_graph_selector[0]
 
 # # Histograms dialog
 # properties_histo_full = {}
-# properties_scatter_dataset = {}
+properties_line_dataset = {}
 
 def creation_line_dataset(train_ds: pd.DataFrame, prod: str):
     line_dataset = train_ds.copy()
     line_dataset = line_dataset[line_dataset['product name'] == prod]
     return line_dataset
-
 
 
 def update_viz(state):
@@ -36,7 +35,7 @@ dv_data_visualization_md = """
 
 <|part|render={dv_graph_selected == 'Line'}|
 ### Line
-<|{prod_selected}|selector|lov={select_prod}|dropdown|label=Select Product|>
+<|{prod_selected}|selector|lov={select_prod}|dropdown|label=Select product|>
 |>
 
 <|{line_dataset}|chart|properties={properties_line_dataset}|rebuild|color[1]=red|color[2]=green|name[1]=Actual|name[2]=Predicted|mode=markers|type=line|height=600px|>

@@ -17,9 +17,9 @@ def handle_temp_csv_path(state):
         state: object containing all the variables used in the GUI
     """
     if state.db_table_selected == "Training Dataset":
-        state.train_dataset.to_csv(PATH_TO_TABLE, sep=';')
+        state.initial_dataset.to_csv(PATH_TO_TABLE, sep=';')
     if state.db_table_selected == "Result Table":
-        state.trained_infer.to_csv(PATH_TO_TABLE, sep=';')
+        state.result_dataset.to_csv(PATH_TO_TABLE, sep=';')
 
 
 # Aggregation of the strings to create the complete page
@@ -33,11 +33,11 @@ db_databases_md = """
 |>
 
 <Training|part|render={db_table_selected=='Training Dataset'}|
-<|{train_dataset}|table|>
+<|{initial_dataset}|table|>
 |Training>
 
 <Result|part|render={db_table_selected=='Forecast Dataset'}|
-<|{trained_infer}|table|width=fit-content|>
+<|{result_dataset}|table|>
 |Result>
 """ 
 
