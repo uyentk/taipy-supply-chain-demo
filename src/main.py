@@ -74,7 +74,7 @@ def update_variables(state, product):
 def update_charts(state, product):
     """This function updates all the charts of the GUI."""
     state.line_dataset = creation_line_dataset(result_dataset, product)
-    state.map_dataset = creation_map_dataset(initial_dataset, product)
+    state.map_dataset_displayed = creation_map_dataset(initial_dataset, product)
 
 
 def on_init(state):
