@@ -27,7 +27,7 @@ scenario = create_first_scenario(scenario_cfg)
 
 # Read datasets
 initial_dataset = scenario.initial_dataset.read()
-train_dataset = scenario.train_dataset.read()
+# train_dataset = scenario.train_dataset.read()
 result_dataset = scenario.trained_infer.read()
 
 # Prepare data for visualization
@@ -36,7 +36,7 @@ prod_selected = select_prod[0]
 
 # Create charts
 forecast_series = result_dataset['y']
-line_dataset = creation_line_dataset(result_dataset)
+line_dataset = creation_line_dataset(result_dataset, prod_selected)
 
 
 def on_change(state, var_name, var_value):
@@ -78,4 +78,4 @@ pages = {
 # Run the GUI
 if __name__ == '__main__':
     gui = Gui(pages=pages)
-    gui.run(title="Supply Chain Prediction", dark_mode=False, port=8494)
+    gui.run(title="Supply Chain Prediction", dark_mode=False, port=8494, use_reloader= True)

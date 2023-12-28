@@ -6,13 +6,7 @@ default_path = "data\\DataCoSupplyChainDataset.csv"
 encoding = "latin1"
 has_header = "True:bool"
 
-[DATA_NODE.end_date]
-
-[DATA_NODE.prod]
-
 [DATA_NODE.preprocessed_dataset]
-
-[DATA_NODE.train_dataset]
 
 [DATA_NODE.trained_infer]
 
@@ -22,20 +16,14 @@ inputs = [ "initial_dataset:SECTION",]
 outputs = [ "preprocessed_dataset:SECTION",]
 skippable = "False:bool"
 
-[TASK.create_train_data]
-function = "config.config.create_train_df:function"
-inputs = [ "preprocessed_dataset:SECTION", "prod:SECTION", "end_date:SECTION",]
-outputs = [ "train_dataset:SECTION",]
-skippable = "False:bool"
-
 [TASK.train_infer_model]
 function = "config.config.train_infer:function"
-inputs = [ "train_dataset:SECTION",]
+inputs = [ "preprocessed_dataset:SECTION",]
 outputs = [ "trained_infer:SECTION",]
 skippable = "False:bool"
 
 [SCENARIO.supplychain_predict]
-tasks = [ "train_infer_model:SECTION", "preprocess_dataset:SECTION", "create_train_data:SECTION",]
+tasks = [ "preprocess_dataset:SECTION", "train_infer_model:SECTION",]
 additional_data_nodes = []
 
 [SCENARIO.supplychain_predict.comparators]

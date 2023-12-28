@@ -36,7 +36,7 @@ dv_data_visualization_md = """
 
 <|part|render={dv_graph_selected == 'Line'}|
 ### Line
-<|{prod_selected}|selector|lov={select_y}|dropdown|label=Select y|>
+<|{prod_selected}|selector|lov={select_prod}|dropdown|label=Select Product|>
 |>
 
 <|{line_dataset}|chart|properties={properties_line_dataset}|rebuild|color[1]=red|color[2]=green|name[1]=Actual|name[2]=Predicted|mode=markers|type=line|height=600px|>
