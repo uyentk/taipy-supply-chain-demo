@@ -37,10 +37,10 @@ prod_selected = select_prod[0]
 forecast_series = result_dataset['y']
 line_dataset = creation_line_dataset(result_dataset, prod_selected)
 
-
 def on_change(state, var_name, var_value):
     """Handle variable changes in the GUI."""
     if var_name == 'prod_selected':
+        state.prod_selected = var_value
         update_viz(state)
     elif var_name == 'db_table_selected':
         handle_temp_csv_path(state)

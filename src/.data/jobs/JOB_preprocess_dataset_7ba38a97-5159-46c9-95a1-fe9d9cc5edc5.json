@@ -1,0 +1,12 @@
+{
+"id": "JOB_preprocess_dataset_7ba38a97-5159-46c9-95a1-fe9d9cc5edc5",
+"task_id": "TASK_preprocess_dataset_e3bb38a0-1406-423e-a6a6-0f891f1034f7",
+"status": "<Status.RUNNING: 4>",
+"force": false,
+"submit_id": "SUBMISSION_583c96c9-cca1-411f-8c0c-3330a24e1788",
+"submit_entity_id": "SCENARIO_supplychain_predict_9afb94f1-36c4-4337-94d4-51ed6a8c984f",
+"creation_date": "2023-12-28T15:17:53.029314",
+"subscribers": [],
+"stacktrace": [],
+"version": "ff9593eb-8901-4bc7-b00a-ab85d2af42f6"
+}

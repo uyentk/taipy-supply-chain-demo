@@ -9,8 +9,8 @@ dv_graph_selected = dv_graph_selector[0]
 # properties_histo_full = {}
 properties_line_dataset = {}
 
-def creation_line_dataset(train_ds: pd.DataFrame, prod: str):
-    line_dataset = train_ds.copy()
+def creation_line_dataset(trained_infer: pd.DataFrame, prod: str):
+    line_dataset = trained_infer.copy()
     line_dataset = line_dataset[line_dataset['product name'] == prod]
     return line_dataset
 
@@ -19,9 +19,14 @@ def update_viz(state):
     global prod_selected
     prod_selected = state.prod_selected
 
-    state.properties_line_dataset =  {"x":prod_selected,
+    state.properties_line_dataset =  {"x":"ds",
                                       "y[1]": "y",
-                                      "y[2]": "yhat"} 
+                                      "y[2]": "yhat",
+                                      "type":"line",
+                                      "color[1]": "green",
+                                      "color[2]": "red",
+                                      "name[1]": "Actual",
+                                      "name[2]": "Predicted"}
     state.line_dataset = state.line_dataset
     # state.scatter_dataset_pred = state.scatter_dataset_pred
 
@@ -38,7 +43,7 @@ dv_data_visualization_md = """
 <|{prod_selected}|selector|lov={select_prod}|dropdown|label=Select product|>
 |>
 
-<|{line_dataset}|chart|properties={properties_line_dataset}|rebuild|color[1]=red|color[2]=green|name[1]=Actual|name[2]=Predicted|mode=markers|type=line|height=600px|>
+<|{line_dataset}|chart|properties={properties_line_dataset}|height=600px|>
 
 """
 
