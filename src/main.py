@@ -40,7 +40,7 @@ line_dataset = creation_line_dataset(result_dataset, prod_selected)
 def on_change(state, var_name, var_value):
     """Handle variable changes in the GUI."""
     if var_name == 'prod_selected':
-        state.prod_selected = var_value
+        update_variables(state, var_value)
         update_viz(state)
     elif var_name == 'db_table_selected':
         handle_temp_csv_path(state)
@@ -62,6 +62,17 @@ def menu_fct(state, var_name, var_value):
     """Function that is called when there is a change in the menu control."""
     state.page = var_value['args'][0]
     navigate(state, state.page.replace(" ", "-"))
+
+def update_variables(state, product):
+    """Update the different variables and dataframes used in the application."""
+    # global scenario
+    state.prod_selected = product
+    
+    update_charts(state, product)
+
+def update_charts(state, product):
+    """This function updates all the charts of the GUI."""
+    state.line_dataset = creation_line_dataset(result_dataset, product)
 
 
 def on_init(state):
