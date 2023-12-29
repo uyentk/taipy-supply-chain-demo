@@ -1,0 +1,18 @@
+{
+"id": "JOB_train_infer_model_6fcd2687-37b1-4d1a-9c40-b5656b12af09",
+"task_id": "TASK_train_infer_model_d909461c-41d0-41a1-8516-f876b7fbe8aa",
+"status": "<Status.COMPLETED: 7>",
+"force": false,
+"submit_id": "SUBMISSION_eafb1222-2288-40be-9925-f115d6dd92df",
+"submit_entity_id": "SCENARIO_supplychain_predict_ef1521b7-5ed4-4630-bbeb-dd1f0a5a24e7",
+"creation_date": "2023-12-29T09:59:59.282961",
+"subscribers": [
+{
+"fct_name": "_Orchestrator._on_status_change",
+"fct_params": [],
+"fct_module": "taipy.core._orchestrator._orchestrator"
+}
+],
+"stacktrace": [],
+"version": "ff9593eb-8901-4bc7-b00a-ab85d2af42f6"
+}
