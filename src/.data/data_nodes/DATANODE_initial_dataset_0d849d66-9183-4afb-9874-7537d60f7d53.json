@@ -1,0 +1,25 @@
+{
+"id": "DATANODE_initial_dataset_0d849d66-9183-4afb-9874-7537d60f7d53",
+"config_id": "initial_dataset",
+"scope": "<Scope.SCENARIO: 1>",
+"storage_type": "csv",
+"name": null,
+"owner_id": "SCENARIO_supplychain_predict_4abdb0ed-1acd-49e2-a960-b65edf99fc8a",
+"parent_ids": [
+"TASK_preprocess_dataset_e91cfa11-5539-4ad7-a12e-749c47015bdd"
+],
+"last_edit_date": "2023-12-29T10:41:58.464921",
+"edits": [],
+"version": "ff9593eb-8901-4bc7-b00a-ab85d2af42f6",
+"validity_days": null,
+"validity_seconds": null,
+"edit_in_progress": false,
+"editor_id": null,
+"editor_expiration_date": null,
+"data_node_properties": {
+"default_path": "data\\DataCoSupplyChainDataset.csv",
+"encoding": "latin1",
+"has_header": true,
+"exposed_type": "pandas"
+}
+}
