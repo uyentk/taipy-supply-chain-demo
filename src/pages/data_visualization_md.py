@@ -80,16 +80,16 @@ options = {"unselected":{"marker":{"opacity":0.5}}}
 dv_data_visualization_md = """
 #**Dashboard**{: .color-primary}
 
-<|layout|columns= 2 1|
 <|{prod_selected}|selector|lov={select_prod}|dropdown|label=Select product|width = 3|>
 
-<|RMSE: </br>{rmse}|text|format= %.2f|>
+<|card|
+**RMSE:**{: .color-primary} <|{rmse}|text|class_name=h7|>
+
+### Doanh số theo thời gian
+<|{line_dataset}|chart|properties={properties_line_dataset}|height=600px|>
 |>
 
-### Line
-<|{line_dataset}|chart|properties={properties_line_dataset}|height=600px|>
-
-### Map
+### Doanh số theo bang
 
 # <|{map_dataset_displayed}|chart|type=scattergeo|lat=Latitude|lon=Longitude|marker={marker_map}|layout={layout_map}|text=Text|mode=markers|height=800px|options={options}|>
 """
