@@ -88,7 +88,12 @@ pages = {
     "Databases": db_databases_md,
 }
 
+stylekit = {
+  "color_primary": "#BADA55",
+  "color_secondary": "#C0FFE",
+}
+
 # Run the GUI
 if __name__ == '__main__':
     gui = Gui(pages=pages)
-    gui.run(title="Supply Chain Prediction", dark_mode=False, port=8494, use_reloader= True)
+    gui.run(title="Supply Chain Prediction", dark_mode=False, port=8494, use_reloader= True, stylekit= stylekit)

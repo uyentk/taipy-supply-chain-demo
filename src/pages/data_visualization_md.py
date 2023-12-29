@@ -49,8 +49,8 @@ def update_viz(state):
                                       "y[1]": "y",
                                       "y[2]": "yhat",
                                       "type":"line",
-                                      "color[1]": "green",
-                                      "color[2]": "red",
+                                      "color[1]": "#BADA55",
+                                      "color[2]": "#FAA0A0",
                                       "name[1]": "Actual",
                                       "name[2]": "Predicted"}
     
@@ -65,7 +65,7 @@ def update_viz(state):
     state.rmse = state.rmse
     # state.map_dataset_res = state.map_dataset_res
 
-marker_map = {"color":"Sales", "size": "Size", "showscale":True, "colorscale":"Viridis"}
+marker_map = {"color":"Sales", "size": "Size", "showscale":True, "colorscale":"lifeExp"}
 
 layout_map = {
             "dragmode": "zoom",
@@ -80,16 +80,16 @@ options = {"unselected":{"marker":{"opacity":0.5}}}
 dv_data_visualization_md = """
 #**Dashboard**{: .color-primary}
 
-<|layout|columns= 2 1|
 <|{prod_selected}|selector|lov={select_prod}|dropdown|label=Select product|width = 3|>
 
-<|RMSE: </br>{rmse}|text|format= %.2f|>
+<|card|
+**RMSE:**{: .color-primary .h7} <|{rmse}|text|class_name=h7|>
+
+### **Doanh số theo thời gian**{: .color-primary}
+<|{line_dataset}|chart|properties={properties_line_dataset}|height=600px|>
 |>
 
-### Line
-<|{line_dataset}|chart|properties={properties_line_dataset}|height=600px|>
-
-### Map
+### **Doanh số theo bang**{: .color-primary}
 
 # <|{map_dataset_displayed}|chart|type=scattergeo|lat=Latitude|lon=Longitude|marker={marker_map}|layout={layout_map}|text=Text|mode=markers|height=800px|options={options}|>
 """
