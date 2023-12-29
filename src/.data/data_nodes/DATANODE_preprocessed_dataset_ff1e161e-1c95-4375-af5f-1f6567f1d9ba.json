@@ -1,0 +1,23 @@
+{
+"id": "DATANODE_preprocessed_dataset_ff1e161e-1c95-4375-af5f-1f6567f1d9ba",
+"config_id": "preprocessed_dataset",
+"scope": "<Scope.SCENARIO: 1>",
+"storage_type": "pickle",
+"name": null,
+"owner_id": "SCENARIO_supplychain_predict_a072219d-96bf-47ee-a62d-e80f6226d74c",
+"parent_ids": [
+"TASK_train_infer_model_a94b6291-5b3a-4b79-b8cd-0ce7b54908c5",
+"TASK_preprocess_dataset_8b352d80-088d-4f45-b33f-91674be1647c"
+],
+"last_edit_date": null,
+"edits": [],
+"version": "ff9593eb-8901-4bc7-b00a-ab85d2af42f6",
+"validity_days": null,
+"validity_seconds": null,
+"edit_in_progress": true,
+"editor_id": null,
+"editor_expiration_date": null,
+"data_node_properties": {
+"is_generated": true
+}
+}
