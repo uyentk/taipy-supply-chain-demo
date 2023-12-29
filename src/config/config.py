@@ -141,7 +141,7 @@ def train_infer(preprocessed_data: pd.DataFrame):
         
         result_df = pd.concat([result_df, forecast], ignore_index=True)
 
-    return result_df
+    return result_df[['product name', 'ds', 'y', 'yhat', 'yhat_lower', 'yhat_upper']]
 # ======================== CONFIG ========================
 
 # path for csv and file_path for pickle
