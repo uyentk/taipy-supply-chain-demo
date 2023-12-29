@@ -1,11 +1,6 @@
 import pandas as pd
 import numpy as np
 
-
-dv_graph_selector = ['Line', 'Map']
-dv_graph_selected = dv_graph_selector[0]
-
-# # Histograms dialog
 # properties_histo_full = {}
 properties_line_dataset = {}
 
@@ -71,23 +66,14 @@ options = {"unselected":{"marker":{"opacity":0.5}}}
 
 dv_data_visualization_md = """
 # Data **Visualization**{: .color-primary}
-<|{dv_graph_selected}|toggle|lov={dv_graph_selector}|>
 
---------------------------------------------------------------------
-
-<|part|render={dv_graph_selected == 'Line'}|
 ### Line
 <|{prod_selected}|selector|lov={select_prod}|dropdown|label=Select product|>
-|>
 
 <|{line_dataset}|chart|properties={properties_line_dataset}|height=600px|>
 
---------------------------------------------------------------------
 
-<|part|render={dv_graph_selected == 'Map'}|
 ### Map
-<|{prod_selected}|selector|lov={select_prod}|dropdown|label=Select product|>
-|>
 
 # <|{map_dataset_displayed}|chart|type=scattergeo|lat=Latitude|lon=Longitude|marker={marker_map}|layout={layout_map}|text=Text|mode=markers|height=800px|options={options}|>
 """
