@@ -37,6 +37,7 @@ prod_selected = select_prod[0]
 forecast_series = result_dataset['y']
 line_dataset = creation_line_dataset(result_dataset, prod_selected)
 map_dataset_displayed = creation_map_dataset(initial_dataset, prod_selected)
+rmse = rmse_calculation(result_dataset, prod_selected)
 
 def on_change(state, var_name, var_value):
     """Handle variable changes in the GUI."""
@@ -48,7 +49,7 @@ def on_change(state, var_name, var_value):
 
 # GUI initialization
 menu_lov = [
-    ("Data Visualization", Icon('images/histogram_menu.svg', 'Data Visualization')),
+    ("Dashboard", Icon('images/histogram_menu.svg', 'Dashboard')),
     ('Databases', Icon('images/Datanode.svg', 'Databases'))
 ]
 
@@ -57,7 +58,7 @@ root_md = """
 <|menu|label=Menu|lov={menu_lov}|on_action=menu_fct|>
 """
 
-page = "Data Visualization"
+page = "Dashboard"
 
 def menu_fct(state, var_name, var_value):
     """Function that is called when there is a change in the menu control."""
@@ -75,7 +76,7 @@ def update_charts(state, product):
     """This function updates all the charts of the GUI."""
     state.line_dataset = creation_line_dataset(result_dataset, product)
     state.map_dataset_displayed = creation_map_dataset(initial_dataset, product)
-
+    state.rmse = rmse_calculation(result_dataset, product)
 
 def on_init(state):
     update_viz(state)
@@ -83,7 +84,7 @@ def on_init(state):
 # Define pages
 pages = {
     "/": root_md, #+ dialog_md,
-    "Data-Visualization": dv_data_visualization_md,
+    "Dashboard": dv_data_visualization_md,
     "Databases": db_databases_md,
 }
 
