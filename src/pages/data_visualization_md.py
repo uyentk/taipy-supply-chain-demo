@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 
-# properties_histo_full = {}
 properties_line_dataset = {}
 
 def creation_line_dataset(trained_infer: pd.DataFrame, prod: str):
