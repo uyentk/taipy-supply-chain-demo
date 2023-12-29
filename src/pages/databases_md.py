@@ -36,7 +36,7 @@ db_databases_md = """
 <|{initial_dataset}|table|>
 |Training>
 
-<Result|part|render={db_table_selected=='Forecast Dataset'}|
+<Result|part|render={db_table_selected=='Result Table'}|
 <|{result_dataset}|table|>
 |Result>
 """ 
