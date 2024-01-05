@@ -1,0 +1,27 @@
+{
+"id": "DATANODE_trained_infer_2e5378dd-15eb-46bf-ad88-8de43ee5da36",
+"config_id": "trained_infer",
+"scope": "<Scope.SCENARIO: 1>",
+"storage_type": "pickle",
+"name": null,
+"owner_id": "SCENARIO_supplychain_predict_488d2948-2106-48dc-9727-c0f819c2284c",
+"parent_ids": [
+"TASK_train_infer_model_297b5b7a-443f-49e9-852b-e44983710f72"
+],
+"last_edit_date": "2024-01-05T17:12:11.083673",
+"edits": [
+{
+"job_id": "JOB_train_infer_model_f15c7c06-fc0e-4d2b-b111-f929cab48479",
+"timestamp": "2024-01-05T17:12:11.083673"
+}
+],
+"version": "ff9593eb-8901-4bc7-b00a-ab85d2af42f6",
+"validity_days": null,
+"validity_seconds": null,
+"edit_in_progress": false,
+"editor_id": null,
+"editor_expiration_date": null,
+"data_node_properties": {
+"is_generated": true
+}
+}

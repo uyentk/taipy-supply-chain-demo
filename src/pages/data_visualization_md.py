@@ -31,8 +31,21 @@ def creation_line_sales(preprocessed_dataset: pd.DataFrame, prod: str):
 def creation_hist_dataset(initial_dataset: pd.DataFrame, prod: str):
     hist_dataset = initial_dataset[initial_dataset['Product Name'] == prod]
     hist_dataset = hist_dataset.groupby(["Type"]).agg(Sales= ('Sales', 'sum')).reset_index()
+    hist_dataset["%"] = (hist_dataset["Sales"] /hist_dataset["Sales"].sum()) * 100
     return hist_dataset
-    
+
+def top_N_prod_by_state(initial_dataset: pd.DataFrame, state: str, N = 10):
+    state_dataset = initial_dataset[initial_dataset["Customer State"] == state]
+    state_dataset = state_dataset.groupby("Product Name").agg(Sales = ('Sales', 'sum')).reset_index()
+    state_dataset = state_dataset.sort_values(by='Sales', ascending=True).head(N)
+    return state_dataset
+
+def order_quantity_by_state(initial_dataset: pd.DataFrame, state: str, N = 10):
+    state_dataset = initial_dataset[initial_dataset["Customer State"] == state]
+    order_quantity_dataset = state_dataset.groupby("Product Name")['Order Item Quantity'].agg('sum').reset_index()
+    order_quantity_dataset = order_quantity_dataset.sort_values(by='Order Item Quantity', ascending=True).head(N)
+    return order_quantity_dataset
+
 def update_map(state):
     global prod_selected
     prod_selected = state.prod_selected
@@ -46,14 +59,17 @@ def update_map(state):
         "color": "#BADA55"
     }
 
-    state.properties_hist_dataset = {
-        "x": "Type",
-        "y": "Sales",
-    }
-
     state.line_sales_dataset = state.line_sales_dataset
 
     state.hist_dataset = state.hist_dataset
+
+def update_hist_state(state):
+    global cus_state_selected
+    cus_state_selected = state.cus_state_selected
+
+    state.state_dataset = state.state_dataset 
+    state.order_quantity_dataset = state.order_quantity_dataset
+    
 
 marker_map = {"color":"Sales", "size": "Size", "showscale":True, "colorscale":"lifeExp"}
 
@@ -68,21 +84,43 @@ layout_map = {
 options = {"unselected":{"marker":{"opacity":0.5}}}
 
 dv_data_visualization_md = """
-#**Map**{: .color-primary}
+#**Data Visualization**{: .color-primary}
+
+--------------------------------------------------------------------
 
 <|{prod_selected}|selector|lov={select_prod}|dropdown|label=Select product|width = 3|>
 
 ### **Doanh số theo bang**{: .color-primary}
 
-# <|{map_dataset_displayed}|chart|type=scattergeo|lat=Latitude|lon=Longitude|marker={marker_map}|layout={layout_map}|text=Text|mode=markers|height=800px|options={options}|>
+<|{map_dataset_displayed}|chart|type=scattergeo|lat=Latitude|lon=Longitude|marker={marker_map}|layout={layout_map}|text=Text|mode=markers|height=800px|options={options}|>
 
-<|{line_sales_dataset}|chart|properties={properties_line_sales}|height=600px|>
+<|layout|columns=1 500px|
+### **Doanh số theo thời gian**{: .color-primary}
 
-<|{hist_dataset}|chart|type=bar|properties = {properties_hist_dataset}|height=600px|>
+### **Doanh số theo hình thức giao dịch**{: .color-primary}
+|>
+
+<|layout|columns=1 500px|
+<|{line_sales_dataset}|chart|properties={properties_line_sales}|height=400px|>
+
+<|{hist_dataset}|chart|type=pie|values=%|labels=Type|height=400px|>
+|>
+
+--------------------------------------------------------------------
+<|{cus_state_selected}|selector|lov={select_state}|dropdown|label=Select customer state|width = 3|>
+
+<|layout|columns=1 1|
+### **Top 10 sản phẩm có doanh số cao nhất theo bang**{: .color-primary}
+
+### **Top 10 sản phẩm được bán nhiều nhất theo bang**{: .color-primary}
+|>
+
+<|layout|columns=1 1|
+<|{state_dataset}|chart|type=bar|orientation=h|x=Sales|y=Product Name|height=600px|>
+
+<|{order_quantity_dataset}|chart|type=bar|orientation=h|x=Order Item Quantity|y=Product Name|height=600px|>
+|>
 """
 #  Taipy currently doesn't support the choropleth map type directly
 # <|{map_dataset_displayed}|chart|type=scattergeo|lat=Latitude|lon=Longitude|marker={marker_map}|layout={layout_map}|text=Text|mode=markers|height=800px|options={options}|>
-
-
-
 
