@@ -1,0 +1,17 @@
+{
+"id": "SCENARIO_supplychain_predict_b46ba27c-94df-4d63-9d6e-cf9be4e13a1f",
+"config_id": "supplychain_predict",
+"tasks": [
+"TASK_preprocess_dataset_4e8eb209-0e76-4ee7-9867-bef89f4ae7ec",
+"TASK_train_infer_model_b7dac992-827a-4a35-a6c6-87fab39b7a57"
+],
+"additional_data_nodes": [],
+"properties": {},
+"creation_date": "2024-01-05T13:41:22.770746",
+"primary_scenario": false,
+"subscribers": [],
+"tags": [],
+"version": "ff9593eb-8901-4bc7-b00a-ab85d2af42f6",
+"sequences": null,
+"cycle": null
+}

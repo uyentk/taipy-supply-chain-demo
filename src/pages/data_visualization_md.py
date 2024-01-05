@@ -1,14 +1,8 @@
-import pandas as pd
+import pandas as pd 
 import numpy as np
-from sklearn.metrics import mean_squared_error
-import math
 
-properties_line_dataset = {}
-
-def creation_line_dataset(trained_infer: pd.DataFrame, prod: str):
-    line_dataset = trained_infer.copy()
-    line_dataset = line_dataset[line_dataset['product name'] == prod]
-    return line_dataset
+properties_line_sales = {}
+properties_hist_dataset = {}
 
 def creation_map_dataset(initial_dataset: pd.DataFrame, prod: str):
     map_dataset = initial_dataset.copy()
@@ -30,40 +24,36 @@ def creation_map_dataset(initial_dataset: pd.DataFrame, prod: str):
     map_dataset_displayed['Text'] = map_dataset_displayed.loc[:,'Sales'].astype(str) + ' orders </br> ' + map_dataset_displayed.loc[:,'Customer State']
     return map_dataset_displayed
 
-def rmse_calculation(trained_infer: pd.DataFrame, prod: str):
-    table = trained_infer.copy()
-    table = table[table['product name'] == prod]
-    table['ds'] = pd.to_datetime(table['ds'])
-    table = table[table['ds'] < '2017-09-30']
-    predicted = table['yhat']
-    actual = table['y']
-    mse = mean_squared_error(actual, predicted)
-    rmse = math.sqrt(mse)
-    return rmse
+def creation_line_sales(preprocessed_dataset: pd.DataFrame, prod: str):
+    line_sales_dataset = preprocessed_dataset[preprocessed_dataset["Product Name"] == prod]
+    return line_sales_dataset
 
-def update_viz(state):
+def creation_hist_dataset(initial_dataset: pd.DataFrame, prod: str):
+    hist_dataset = initial_dataset[initial_dataset['Product Name'] == prod]
+    hist_dataset = hist_dataset.groupby(["Type"]).agg(Sales= ('Sales', 'sum')).reset_index()
+    return hist_dataset
+    
+def update_map(state):
     global prod_selected
     prod_selected = state.prod_selected
-
-    state.properties_line_dataset =  {"x":"ds",
-                                      "y[1]": "y",
-                                      "y[2]": "yhat",
-                                      "type":"line",
-                                      "color[1]": "#BADA55",
-                                      "color[2]": "#FAA0A0",
-                                      "name[1]": "Actual",
-                                      "name[2]": "Predicted"}
-    
-    state.line_dataset = state.line_dataset
-    # state.line_dataset_res = state.line_dataset_res
-
-    # state.properties_map_dataset = {'type':'scattergeo',
-    #                                 'lat': 'Latitude',
-    #                                 'lon': 'Longitude'}
-    
     state.map_dataset_displayed = state.map_dataset_displayed
-    state.rmse = state.rmse
-    # state.map_dataset_res = state.map_dataset_res
+
+    state.properties_line_sales = {
+        "x": "Date",
+        "y": "Sales",
+        "type": "line",
+        "name": "Sales",
+        "color": "#BADA55"
+    }
+
+    state.properties_hist_dataset = {
+        "x": "Type",
+        "y": "Sales",
+    }
+
+    state.line_sales_dataset = state.line_sales_dataset
+
+    state.hist_dataset = state.hist_dataset
 
 marker_map = {"color":"Sales", "size": "Size", "showscale":True, "colorscale":"lifeExp"}
 
@@ -78,20 +68,21 @@ layout_map = {
 options = {"unselected":{"marker":{"opacity":0.5}}}
 
 dv_data_visualization_md = """
-#**Dashboard**{: .color-primary}
+#**Map**{: .color-primary}
 
 <|{prod_selected}|selector|lov={select_prod}|dropdown|label=Select product|width = 3|>
-
-<|card|
-**RMSE:**{: .color-primary .h7} <|{rmse}|text|class_name=h7|>
-
-### **Doanh số theo thời gian**{: .color-primary}
-<|{line_dataset}|chart|properties={properties_line_dataset}|height=600px|>
-|>
 
 ### **Doanh số theo bang**{: .color-primary}
 
 # <|{map_dataset_displayed}|chart|type=scattergeo|lat=Latitude|lon=Longitude|marker={marker_map}|layout={layout_map}|text=Text|mode=markers|height=800px|options={options}|>
+
+<|{line_sales_dataset}|chart|properties={properties_line_sales}|height=600px|>
+
+<|{hist_dataset}|chart|type=bar|properties = {properties_hist_dataset}|height=600px|>
 """
 #  Taipy currently doesn't support the choropleth map type directly
 # <|{map_dataset_displayed}|chart|type=scattergeo|lat=Latitude|lon=Longitude|marker={marker_map}|layout={layout_map}|text=Text|mode=markers|height=800px|options={options}|>
+
+
+
+
