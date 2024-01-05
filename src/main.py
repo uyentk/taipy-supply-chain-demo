@@ -28,9 +28,10 @@ scenario = create_first_scenario(scenario_cfg)
 initial_dataset = scenario.initial_dataset.read()
 # train_dataset = scenario.train_dataset.read()
 result_dataset = scenario.trained_infer.read()
+preprocessed_dataset = scenario.preprocessed_dataset.read()
 
 # Prepare data for visualization
-select_prod = list(result_dataset['product name'].unique())
+select_prod = list(result_dataset['product name'].unique()) 
 prod_selected = select_prod[0]
 
 # Create charts
@@ -38,19 +39,24 @@ forecast_series = result_dataset['y']
 line_dataset = creation_line_dataset(result_dataset, prod_selected)
 map_dataset_displayed = creation_map_dataset(initial_dataset, prod_selected)
 rmse = rmse_calculation(result_dataset, prod_selected)
+line_sales_dataset = creation_line_sales(preprocessed_dataset, prod_selected)
+hist_dataset = creation_hist_dataset(initial_dataset, prod_selected)
+print(hist_dataset)
 
 def on_change(state, var_name, var_value):
     """Handle variable changes in the GUI."""
     if var_name == 'prod_selected':
         update_variables(state, var_value)
         update_viz(state)
+        update_map(state)
     elif var_name == 'db_table_selected':
         handle_temp_csv_path(state)
 
 # GUI initialization
 menu_lov = [
-    ("Dashboard", Icon('images/histogram_menu.svg', 'Dashboard')),
-    ('Databases', Icon('images/Datanode.svg', 'Databases'))
+    ("Model Management", Icon('images/histogram_menu.svg', 'Model Management')),
+    ('Databases', Icon('images/Datanode.svg', 'Databases')),
+    ('Data Visualization', Icon('images/histogram_menu.svg', 'Data Visualization'))
 ]
 
 root_md = """
@@ -58,7 +64,7 @@ root_md = """
 <|menu|label=Menu|lov={menu_lov}|on_action=menu_fct|>
 """
 
-page = "Dashboard"
+page = "Model Management"
 
 def menu_fct(state, var_name, var_value):
     """Function that is called when there is a change in the menu control."""
@@ -77,15 +83,19 @@ def update_charts(state, product):
     state.line_dataset = creation_line_dataset(result_dataset, product)
     state.map_dataset_displayed = creation_map_dataset(initial_dataset, product)
     state.rmse = rmse_calculation(result_dataset, product)
-
+    state.line_sales_dataset = creation_line_sales(preprocessed_dataset, product)
+    state.hist_dataset = creation_hist_dataset(initial_dataset, product)
+    
 def on_init(state):
     update_viz(state)
+    update_map(state)
 
 # Define pages
 pages = {
     "/": root_md, #+ dialog_md,
-    "Dashboard": dv_data_visualization_md,
+    "Model-Management": dv_model_management_md,
     "Databases": db_databases_md,
+    "Data-Visualization": dv_data_visualization_md,
 }
 
 stylekit = {

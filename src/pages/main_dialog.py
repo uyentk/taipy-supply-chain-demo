@@ -1,5 +1,6 @@
-from pages.data_visualization_md import *
+from pages.model_management_md import *
 from pages.databases_md import *
+from pages.data_visualization_md import *
 
 dr_show_roc = False
 
