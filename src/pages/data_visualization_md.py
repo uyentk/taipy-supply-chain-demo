@@ -56,7 +56,11 @@ def update_map(state):
         "y": "Sales",
         "type": "line",
         "name": "Sales",
-        "color": "#BADA55"
+        "color": "#BADA55",
+        "layout": {
+            "xaxis": { "title": "" },
+            "yaxis": { "title": "" },
+        }
     }
 
     state.line_sales_dataset = state.line_sales_dataset
@@ -80,6 +84,12 @@ layout_map = {
             "scope": "usa"
         }
             }
+
+properties_bar_state = {"orientation": "v",
+                        "x": "Product Name",
+                        "y": "Sales",
+                        "layout": {"yaxis": { "title": "" }}
+                        }
 
 options = {"unselected":{"marker":{"opacity":0.5}}}
 
@@ -116,9 +126,9 @@ dv_data_visualization_md = """
 |>
 
 <|layout|columns=1 1|
-<|{state_dataset}|chart|type=bar|orientation=h|x=Sales|y=Product Name|height=600px|>
+<|{state_dataset}|chart|type=bar|properties={properties_bar_state}|height=600px|>
 
-<|{order_quantity_dataset}|chart|type=bar|orientation=h|x=Order Item Quantity|y=Product Name|height=600px|>
+<|{order_quantity_dataset}|chart|type=bar|orientation=v|x=Product Name|y=Order Item Quantity|height=600px|>
 |>
 """
 #  Taipy currently doesn't support the choropleth map type directly
