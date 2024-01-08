@@ -56,7 +56,7 @@ def update_map(state):
         "y": "Sales",
         "type": "line",
         "name": "Sales",
-        "color": "#BADA55"
+        "color": "#FAA0A0"
     }
 
     state.line_sales_dataset = state.line_sales_dataset
@@ -83,6 +83,10 @@ layout_map = {
 
 options = {"unselected":{"marker":{"opacity":0.5}}}
 
+marker_pie = {
+    'colors': ["FD8A8A", "F1F7B5", "A8D1D1", "9EA1D4"]
+}
+
 dv_data_visualization_md = """
 #**Data Visualization**{: .color-primary}
 
@@ -103,7 +107,7 @@ dv_data_visualization_md = """
 <|layout|columns=1 500px|
 <|{line_sales_dataset}|chart|properties={properties_line_sales}|height=400px|>
 
-<|{hist_dataset}|chart|type=pie|values=%|labels=Type|height=400px|>
+<|{hist_dataset}|chart|type=pie|values=%|labels=Type|height=400px|marker={marker_pie}|>
 |>
 
 --------------------------------------------------------------------
