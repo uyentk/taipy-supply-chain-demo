@@ -37,13 +37,13 @@ def creation_hist_dataset(initial_dataset: pd.DataFrame, prod: str):
 def top_N_prod_by_state(initial_dataset: pd.DataFrame, state: str, N = 10):
     state_dataset = initial_dataset[initial_dataset["Customer State"] == state]
     state_dataset = state_dataset.groupby("Product Name").agg(Sales = ('Sales', 'sum')).reset_index()
-    state_dataset = state_dataset.sort_values(by='Sales', ascending=True).head(N)
+    state_dataset = state_dataset.sort_values(by='Sales', ascending= False).head(N)
     return state_dataset
 
 def order_quantity_by_state(initial_dataset: pd.DataFrame, state: str, N = 10):
     state_dataset = initial_dataset[initial_dataset["Customer State"] == state]
     order_quantity_dataset = state_dataset.groupby("Product Name")['Order Item Quantity'].agg('sum').reset_index()
-    order_quantity_dataset = order_quantity_dataset.sort_values(by='Order Item Quantity', ascending=True).head(N)
+    order_quantity_dataset = order_quantity_dataset.sort_values(by='Order Item Quantity', ascending=False).head(N)
     return order_quantity_dataset
 
 def update_map(state):
@@ -56,7 +56,11 @@ def update_map(state):
         "y": "Sales",
         "type": "line",
         "name": "Sales",
-        "color": "#FAA0A0"
+        "color": "#FAA0A0",
+        "layout": {
+            "xaxis": { "title": "" },
+            "yaxis": { "title": "" },
+        }
     }
 
     state.line_sales_dataset = state.line_sales_dataset
@@ -81,6 +85,20 @@ layout_map = {
         }
             }
 
+properties_bar_state1 = {"orientation": "v",
+                        "x": "Product Name",
+                        "y": "Sales",
+                        "layout": {"xaxis": { "title": "" }},
+                        "color": "#FAA0A0"
+                        }
+
+properties_bar_state2 = {"orientation": "v",
+                        "x": "Product Name",
+                        "y": "Order Item Quantity",
+                        "layout": {"xaxis": { "title": "" }},
+                        "color": "A8D1D1"
+                        }
+
 options = {"unselected":{"marker":{"opacity":0.5}}}
 
 marker_pie = {
@@ -94,14 +112,14 @@ dv_data_visualization_md = """
 
 <|{prod_selected}|selector|lov={select_prod}|dropdown|label=Select product|width = 3|>
 
-### **Doanh số theo bang**{: .color-primary}
+#### **Doanh số theo bang**{: .color-primary}
 
 <|{map_dataset_displayed}|chart|type=scattergeo|lat=Latitude|lon=Longitude|marker={marker_map}|layout={layout_map}|text=Text|mode=markers|height=800px|options={options}|>
 
 <|layout|columns=1 500px|
-### **Doanh số theo thời gian**{: .color-primary}
+#### **Doanh số theo thời gian**{: .color-primary}
 
-### **Doanh số theo hình thức giao dịch**{: .color-primary}
+#### **Doanh số theo hình thức giao dịch**{: .color-primary}
 |>
 
 <|layout|columns=1 500px|
@@ -114,15 +132,15 @@ dv_data_visualization_md = """
 <|{cus_state_selected}|selector|lov={select_state}|dropdown|label=Select customer state|width = 3|>
 
 <|layout|columns=1 1|
-### **Top 10 sản phẩm có doanh số cao nhất theo bang**{: .color-primary}
+#### **Top 10 sản phẩm có doanh số cao nhất theo bang**{: .color-primary}
 
-### **Top 10 sản phẩm được bán nhiều nhất theo bang**{: .color-primary}
+#### **Top 10 sản phẩm được bán nhiều nhất theo bang**{: .color-primary}
 |>
 
 <|layout|columns=1 1|
-<|{state_dataset}|chart|type=bar|orientation=h|x=Sales|y=Product Name|height=600px|>
+<|{state_dataset}|chart|type=bar|properties={properties_bar_state1}|height=600px|>
 
-<|{order_quantity_dataset}|chart|type=bar|orientation=h|x=Order Item Quantity|y=Product Name|height=600px|>
+<|{order_quantity_dataset}|chart|type=bar|properties={properties_bar_state2}|height=600px|>
 |>
 """
 #  Taipy currently doesn't support the choropleth map type directly

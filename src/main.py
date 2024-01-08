@@ -64,7 +64,7 @@ def on_change(state, var_name, var_value):
 
 # GUI initialization
 menu_lov = [
-    ("Model Management", Icon('images/histogram_menu.svg', 'Model Management')),
+    ("Model Management", Icon('images/compare.svg', 'Model Management')),
     ('Databases', Icon('images/Datanode.svg', 'Databases')),
     ('Data Visualization', Icon('images/histogram_menu.svg', 'Data Visualization'))
 ]

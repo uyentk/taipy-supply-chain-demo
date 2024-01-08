@@ -32,7 +32,10 @@ def update_viz(state):
                                       "color[1]": "#BADA55",
                                       "color[2]": "#FAA0A0",
                                       "name[1]": "Actual",
-                                      "name[2]": "Predicted"}
+                                      "name[2]": "Predicted",
+                                      "layout": {
+                                          "xaxis": {"title": "Month"}
+                                      }}
     
     state.line_dataset = state.line_dataset
     # state.line_dataset_res = state.line_dataset_res
@@ -40,22 +43,8 @@ def update_viz(state):
     # state.properties_map_dataset = {'type':'scattergeo',
     #                                 'lat': 'Latitude',
     #                                 'lon': 'Longitude'}
-    
-    state.map_dataset_displayed = state.map_dataset_displayed
     state.rmse = state.rmse
     # state.map_dataset_res = state.map_dataset_res
-
-marker_map = {"color":"Sales", "size": "Size", "showscale":True, "colorscale":"lifeExp"}
-
-layout_map = {
-            "dragmode": "zoom",
-            "mapbox": { "style": "open-street-map", "center": { "lat": 38, "lon": -90 }, "zoom": 3},
-            "geo": {
-            "scope": "usa"
-        }
-            }
-
-options = {"unselected":{"marker":{"opacity":0.5}}}
 
 dv_model_management_md = """
 #**Dashboard**{: .color-primary}
