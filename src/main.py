@@ -41,7 +41,7 @@ cus_state_selected = select_state[0]
 forecast_series = result_dataset['y']
 line_dataset = creation_line_dataset(result_dataset, prod_selected)
 map_dataset_displayed = creation_map_dataset(initial_dataset, prod_selected)
-rmse = rmse_calculation(result_dataset, prod_selected)
+rmse, mape, mae = metrics_calculation(result_dataset, prod_selected)
 line_sales_dataset = creation_line_sales(preprocessed_dataset, prod_selected)
 hist_dataset = creation_hist_dataset(initial_dataset, prod_selected)
 state_dataset = top_N_prod_by_state(initial_dataset, cus_state_selected)
@@ -94,7 +94,7 @@ def update_charts_product(state, product):
     """This function updates all the charts of the GUI."""
     state.line_dataset = creation_line_dataset(result_dataset, product)
     state.map_dataset_displayed = creation_map_dataset(initial_dataset, product)
-    state.rmse = rmse_calculation(result_dataset, product)
+    state.rmse, state.mape, state.mae = metrics_calculation(result_dataset, product)
     state.line_sales_dataset = creation_line_sales(preprocessed_dataset, product)
     state.hist_dataset = creation_hist_dataset(initial_dataset, product)
 
@@ -117,7 +117,7 @@ pages = {
 
 stylekit = {
   "color_primary": "#BADA55",
-  "color_secondary": "#C0FFE",
+  "color_secondary": "#FF5733",
 }
 
 # Run the GUI
